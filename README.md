@@ -13,7 +13,8 @@ It is made from scratch using HTML, CSS and JS.
 4. **Guess Early**: You can guess the heaviest and lightest cubes before using all weighings.
 
 ## Gameplay
-[Gameplay Video]()
+
+https://github.com/DanielSarf/Max-Min-Weights-The-Game/assets/72676273/469cfc89-190f-48ac-9855-5eb68bd3e0db
 
 ## Getting Started
 
