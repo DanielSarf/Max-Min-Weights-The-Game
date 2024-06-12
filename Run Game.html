@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Max Min Weights: The Game</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <div id="titleScreen">
+        <h1>Max Min Weights: The Game</h1>
+        <h2>By Daniel Sarfraz (035) & Kiran Fatima (207)</h2>
+        <div id="rules">
+            <h4>Introduction:</h3>
+            <ul>
+                <li>The objective is to identify the heaviest and lightest cube.</li>
+                <li>You may use a two pan balance to find out which side is heavier.</li>
+                <li>You only get a certain number of weighings before you must select the heaviest and lightest cube.</li>
+                <li>You may guess the heaviest and lightest cube early.</li>
+            </ul>
+        </div>
+        <h3>Click to begin the game...</h3>
+    </div>
+
+    <div id="selectNumber" style="display: none;">
+        <h2>Select number of cubes</h2>
+        <div id="sliderContainer">
+            <input type="range" min="3" max="20" value="5" id="slider" oninput="updateSliderValue()">
+            <div id="sliderValueContainer">
+                <button onclick="initGame()" id="sliderValue">05 ➤</button>
+            </div>
+        </div>
+        <h3 id="challengeText">Challenge: Guess the correct cubes in 6 or less weighings</h3>
+    </div>
+
+    <div id="game" style="display: none;">
+        <h2 id="weighingsCounter">Weighings left: </h2>
+        <div id="guessEarlyContainer">
+            <button onclick="choose(true)" id="guessEarly">Guess early</button>
+        </div>
+        <div id="digitalScale">
+            <img id="digitalScaleImage" src="./Assets/Digital Pan Balance.png">
+            <h3 id="left">Left pan: _______</h3>
+            <h3 id="right">Right pan: _______</h3>
+            <div id="weighButton" onclick="weigh()"></div>
+        </div>
+        <div id="grid0" class="grid"></div>
+        <div id="grid1" class="grid"></div>
+        <div id="grid2" class="grid"></div>
+        <div id="grid3" class="grid"></div>
+        <div id="cubesContainer"></div>
+    </div>
+
+    <div id="chooseScreen" style="display: none;">
+        <div id="chooseBox">
+            <h1>Choose the lightest cube: <input required type="number" oninput="chooseInputValidation('lightestCubeNumberInput')" id="lightestCubeNumberInput"></input></h1>
+            <h1>Choose the heaviest cube: <input required type="number" oninput="chooseInputValidation('heaviestCubeNumberInput')" id="heaviestCubeNumberInput"></input></h1>
+            <div id="chooseScreenButtonsContainer">
+                <button onclick="closeChooseScreen()" id="close" style="display: none;">✖</button>
+                <button onclick="restartGame()" id="restart">Restart</button>
+                <button onclick="lastScreen()" id="accept">Accept</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="lastScreen" style="display: none;">
+        <h1 id="winStatusMessage">You Win!!!</h1>
+        <h2 id="cubesRevealedMessage">The lightest cube is cube 1<br>You chose cube 1<br><br>The heaviest cube is cube 1<br>You chose cube 1</h2>
+        <div id="lastScreenButtonsContainer">
+            <button onclick="restartGame()" id="menu">Menu</button>
+            <button onclick="exitGame()" id="exit">Exit</button>
+        </div>
+    </div>
+</body>
+<script src="script.js"></script>
+</html>

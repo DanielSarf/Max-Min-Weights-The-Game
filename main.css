@@ -1,0 +1,352 @@
+@font-face {
+  font-family: "digital-7";
+  src: url(./Assets/digital-7\ \(mono\).ttf) format("truetype");
+}
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Courier New", Courier, monospace;
+}
+
+:root {
+  font-size: 1vh;
+  --happyGreen: rgb(133, 255, 51);
+  --happyGreenHover: rgb(102, 255, 0);
+  --angryRed: rgb(255, 32, 32);
+  --angryRedHover: rgb(255, 0, 0);
+  --digitalScaleHeight: 17.5rem;
+  --digitalFont: "digital-7";
+  --digitalFontColor: red;
+  --cubeLength: 10rem;
+  --cubeTextSize: 3rem;
+  --gridStroke: 0.3rem;
+  --gridColor: black;
+  --chooseScreenHeight: 35rem;
+  --chooseScreenWidth: 80rem;
+  --chooseScreenBackgroundTint: rgba(0, 0, 0, 0.7);
+}
+:root h1, :root h2, :root h3, :root h4, :root li, :root button {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+       user-select: none;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background: linear-gradient(#67a9ff, #ffe2ac);
+}
+body #titleScreen {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+body #titleScreen h1 {
+  font-size: 6rem;
+}
+body #titleScreen h2, body #titleScreen h3 {
+  font-size: 3rem;
+}
+body #titleScreen #rules {
+  margin: 10rem 0;
+  width: 50%;
+}
+body #titleScreen #rules h4 {
+  font-size: 2.5rem;
+}
+body #titleScreen #rules li {
+  margin-top: 1rem;
+  font-size: 2rem;
+  list-style: none;
+}
+body #selectNumber {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+body #selectNumber h2 {
+  font-size: 3rem;
+}
+body #selectNumber #sliderContainer {
+  display: flex;
+  margin: 2rem 0;
+  align-items: center;
+  width: 35rem;
+}
+body #selectNumber #sliderContainer #slider {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+       appearance: none;
+  height: 1.25rem;
+  width: 100%;
+  border-radius: 2rem;
+  background: rgb(255, 255, 255);
+}
+body #selectNumber #sliderContainer #slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 2.5rem;
+  background: #000000;
+  cursor: pointer;
+}
+body #selectNumber #sliderContainer #slider::-moz-range-thumb {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 2.5rem;
+  background: #000000;
+  cursor: pointer;
+}
+body #selectNumber #sliderContainer #sliderValueContainer {
+  display: flex;
+  justify-content: start;
+  margin-left: 1rem;
+}
+body #selectNumber #sliderContainer #sliderValueContainer #sliderValue {
+  padding: 0.1rem 1.5rem;
+  font-size: 2rem;
+  font-weight: bold;
+  white-space: nowrap;
+  border: #000000 0.1rem solid;
+  border-radius: 3rem;
+  background-color: var(--happyGreen);
+}
+body #selectNumber #sliderContainer #sliderValueContainer #sliderValue:hover {
+  cursor: pointer;
+  background-color: var(--happyGreenHover);
+}
+body #selectNumber #challengeText {
+  margin-top: 3rem;
+  font-size: 2.5rem;
+  color: var(--angryRed);
+}
+body #game {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+body #game #weighingsCounter {
+  position: absolute;
+  top: 1.2rem;
+  left: calc(50% - 39.75rem);
+  font-size: 3rem;
+  z-index: 2;
+}
+body #game #guessEarlyContainer {
+  position: absolute;
+  top: 0.6rem;
+  right: calc(50% - 34.75rem);
+  z-index: 2;
+}
+body #game #guessEarlyContainer #guessEarly {
+  padding: 0.5rem 1.25rem;
+  font-size: 3rem;
+  font-weight: bold;
+  white-space: nowrap;
+  border: #000000 0.1rem solid;
+  border-radius: 3rem;
+  background-color: var(--happyGreen);
+}
+body #game #guessEarlyContainer #guessEarly:hover {
+  cursor: pointer;
+  background-color: var(--happyGreenHover);
+}
+body #game #digitalScale {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  height: var(--digitalScaleHeight);
+  width: auto;
+}
+body #game #digitalScale #digitalScaleImage {
+  height: 100%;
+  width: auto;
+}
+body #game #digitalScale h3 {
+  font-family: var(--digitalFont);
+  font-size: 3rem;
+  color: var(--digitalFontColor);
+  position: absolute;
+  top: calc(var(--digitalScaleHeight) / 2.475);
+  font-weight: 100;
+}
+body #game #digitalScale #left {
+  left: 9.8rem;
+}
+body #game #digitalScale #right {
+  left: calc(50% + 8.4rem);
+}
+body #game #digitalScale #weighButton {
+  position: absolute;
+  z-index: 2;
+  top: calc(var(--digitalScaleHeight) / 2.9);
+  height: 5rem;
+  width: 8rem;
+  cursor: pointer;
+}
+body #game .grid {
+  position: absolute;
+  box-shadow: inset 0 0 0 calc(2 * var(--gridStroke)) var(--gridColor);
+  background: repeating-linear-gradient(to right, var(--gridColor) 0px, var(--gridColor) 0.3rem, transparent var(--gridStroke), transparent calc(var(--cubeLength) - var(--gridStroke)), var(--gridColor) calc(var(--cubeLength) - var(--gridStroke)), var(--gridColor) var(--cubeLength)), repeating-linear-gradient(to bottom, var(--gridColor) 0px, var(--gridColor) 0.3rem, transparent var(--gridStroke), transparent calc(var(--cubeLength) - var(--gridStroke)), var(--gridColor) calc(var(--cubeLength) - var(--gridStroke)), var(--gridColor) var(--cubeLength));
+  filter: opacity(0);
+}
+body #game #cubesContainer {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+}
+body #game #cubesContainer .cube {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  height: var(--cubeLength);
+  width: var(--cubeLength);
+  background-image: url(./Assets/Cube.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+body #game #cubesContainer .cube .cubeText {
+  font-size: var(--cubeTextSize);
+  font-weight: bold;
+}
+body #chooseScreen {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  background-color: var(--chooseScreenBackgroundTint);
+  z-index: 3;
+}
+body #chooseScreen #chooseBox {
+  position: absolute;
+  top: calc(50% - var(--chooseScreenHeight) / 2);
+  left: calc(50% - var(--chooseScreenWidth) / 2);
+  display: flex;
+  height: var(--chooseScreenHeight);
+  width: var(--chooseScreenWidth);
+  border-radius: 5rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+body #chooseScreen #chooseBox h1 {
+  font-size: 3rem;
+  padding-bottom: 3rem;
+}
+body #chooseScreen #chooseBox h1 #lightestCubeNumberInput, body #chooseScreen #chooseBox h1 #heaviestCubeNumberInput {
+  width: 8rem;
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+       appearance: none;
+  border: none;
+  outline: none;
+  border-bottom: #000000 0.3rem solid;
+  background-color: rgba(0, 0, 0, 0);
+  -moz-appearance: textfield;
+}
+body #chooseScreen #chooseBox h1 input::-webkit-outer-spin-button, body #chooseScreen #chooseBox h1 input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+body #chooseScreen #chooseBox #chooseScreenButtonsContainer {
+  margin-top: 2rem;
+}
+body #chooseScreen #chooseBox #chooseScreenButtonsContainer button {
+  padding: 0.9rem 1.8rem;
+  font-size: 3rem;
+  font-weight: bold;
+  white-space: nowrap;
+  border: #000000 0.1rem solid;
+  border-radius: 3rem;
+}
+body #chooseScreen #chooseBox #chooseScreenButtonsContainer #close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: white;
+  color: black;
+  border: none;
+}
+body #chooseScreen #chooseBox #chooseScreenButtonsContainer #close:hover {
+  cursor: pointer;
+}
+body #chooseScreen #chooseBox #chooseScreenButtonsContainer #restart {
+  margin-right: 5rem;
+  background-color: var(--angryRed);
+  color: white;
+}
+body #chooseScreen #chooseBox #chooseScreenButtonsContainer #restart:hover {
+  cursor: pointer;
+  background-color: var(--angryRedHover);
+}
+body #chooseScreen #chooseBox #chooseScreenButtonsContainer #accept {
+  background-color: var(--happyGreen);
+}
+body #chooseScreen #chooseBox #chooseScreenButtonsContainer #accept:hover {
+  cursor: pointer;
+  background-color: var(--happyGreenHover);
+}
+body #lastScreen {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+body #lastScreen #winStatusMessage {
+  font-size: 10rem;
+  text-shadow: 0.2rem 0.2rem 0 #000, -0.2rem 0.2rem 0 #000, -0.2rem -0.2rem 0 #000, 0.2rem -0.2rem 0 #000;
+}
+body #lastScreen #cubesRevealedMessage {
+  margin: 5rem 0;
+  font-size: 3rem;
+  text-align: center;
+  line-height: 4.5rem;
+}
+body #lastScreen #lastScreenButtonsContainer {
+  position: relative;
+}
+body #lastScreen #lastScreenButtonsContainer button {
+  padding: 0.9rem 1.8rem;
+  font-size: 3rem;
+  font-weight: bold;
+  white-space: nowrap;
+  border: #000000 0.1rem solid;
+  border-radius: 3rem;
+}
+body #lastScreen #lastScreenButtonsContainer #menu {
+  margin-right: 5rem;
+  background-color: var(--happyGreen);
+}
+body #lastScreen #lastScreenButtonsContainer #menu:hover {
+  cursor: pointer;
+  background-color: var(--happyGreenHover);
+}
+body #lastScreen #lastScreenButtonsContainer #exit {
+  background-color: var(--angryRed);
+  color: white;
+}
+body #lastScreen #lastScreenButtonsContainer #exit:hover {
+  cursor: pointer;
+  background-color: var(--angryRedHover);
+}/*# sourceMappingURL=main.css.map */

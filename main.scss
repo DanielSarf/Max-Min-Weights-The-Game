@@ -1,0 +1,470 @@
+@font-face
+{
+    font-family: "digital-7";
+    src: url(./Assets/digital-7\ \(mono\).ttf) format("truetype");
+}
+
+*
+{
+    padding: 0;
+    margin: 0;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+:root
+{
+    font-size: 1vh;
+
+    h1, h2, h3, h4, li, button
+    {
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    //Variables:
+    --happyGreen: rgb(133, 255, 51);
+    --happyGreenHover: rgb(102, 255, 0);
+    --angryRed: rgb(255, 32, 32);
+    --angryRedHover: rgb(255, 0, 0);
+
+    --digitalScaleHeight: 17.5rem;
+    --digitalFont: "digital-7";
+    --digitalFontColor: red;
+
+    --cubeLength: 10rem;
+    --cubeTextSize: 3rem;
+
+    --gridStroke: 0.3rem;
+    --gridColor: black;
+
+    --chooseScreenHeight: 35rem;
+    --chooseScreenWidth: 80rem;
+    --chooseScreenBackgroundTint: rgba(0, 0, 0, 0.7);
+}
+
+body
+{
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    background: linear-gradient(#67a9ff, #ffe2ac);
+
+    #titleScreen
+    {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        h1
+        {
+            font-size: 6rem;
+        }
+
+        h2, h3
+        {
+            font-size: 3rem;
+        }
+
+        #rules
+        {
+            margin: 10rem 0;
+            width: 50%;
+
+            h4
+            {
+                font-size: 2.5rem;
+            }
+
+            li
+            {
+                margin-top: 1rem;
+                font-size: 2rem;
+                list-style: none;
+            }
+        }
+    }
+
+    #selectNumber
+    {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+
+        h2
+        {
+            font-size: 3rem;
+        }
+
+        #sliderContainer
+        {
+            display: flex;
+            margin: 2rem 0;
+            align-items: center;
+            width: 35rem;
+
+            #slider
+            {
+                -webkit-appearance: none;
+                appearance: none;
+                height: 1.25rem;
+                width: 100%;
+                border-radius: 2rem;
+                background: rgb(255, 255, 255);
+            }
+
+            #slider::-webkit-slider-thumb
+            {
+                -webkit-appearance: none;
+                appearance: none;
+                width: 2.5rem;
+                height: 2.5rem;
+                border-radius: 2.5rem;
+                background: #000000;
+                cursor: pointer;
+            }
+
+            #slider::-moz-range-thumb
+            {
+                width: 2.5rem;
+                height: 2.5rem;
+                border-radius: 2.5rem;
+                background: #000000;
+                cursor: pointer;
+            }
+
+            #sliderValueContainer
+            {
+                display: flex;
+                justify-content: start;
+                margin-left: 1rem;
+
+                #sliderValue
+                {
+                    padding: 0.1rem 1.5rem;
+                    font-size: 2rem;
+                    font-weight: bold;
+                    white-space: nowrap;
+                    border: #000000 0.1rem solid;
+                    border-radius: 3rem;
+                    background-color: var(--happyGreen);
+                }
+
+                #sliderValue:hover
+                {
+                    cursor: pointer;
+                    background-color: var(--happyGreenHover);
+                }
+            }
+
+        }
+
+        #challengeText
+        {
+            margin-top: 3rem;
+            font-size: 2.5rem;
+            color: var(--angryRed);
+        }
+    }
+
+    #game
+    {
+        display: flex;
+        justify-content: center;
+        height: 100%;
+        width: 100%;
+        position: relative;
+
+        #weighingsCounter
+        {
+            position: absolute;
+            top: 1.2rem;
+            left: calc(50% - 39.75rem);
+            font-size: 3rem;
+            z-index: 2;
+        }
+        
+        #guessEarlyContainer
+        {
+            position: absolute;
+            top: 0.6rem;
+            right: calc(50% - 34.75rem);
+            z-index: 2;
+            
+            #guessEarly
+            {
+                padding: 0.5rem 1.25rem;
+                font-size: 3rem;
+                font-weight: bold;
+                white-space: nowrap;
+                border: #000000 0.1rem solid;
+                border-radius: 3rem;
+                background-color: var(--happyGreen);
+            }
+
+            #guessEarly:hover
+            {
+                cursor: pointer;
+                background-color: var(--happyGreenHover);
+            }
+        }
+        
+        #digitalScale
+        {
+            display: flex;
+            justify-content: center;
+            position: absolute;
+            bottom: 0;
+            height: var(--digitalScaleHeight);
+            width: auto;
+
+            #digitalScaleImage
+            {
+                height: 100%;
+                width: auto;
+            }
+
+            h3
+            {
+                font-family: var(--digitalFont);
+                font-size: 3rem;
+                color: var(--digitalFontColor);
+                position: absolute;
+                top: calc(var(--digitalScaleHeight)/2.475);
+                font-weight: 100;
+            }
+
+            #left
+            {
+                left: 9.8rem;
+            }
+
+            #right
+            {
+                left: calc(50% + 8.4rem);
+            }
+
+            #weighButton
+            {
+                position: absolute;
+                z-index: 2;
+                top: calc(var(--digitalScaleHeight)/2.9);
+                height: 5rem;
+                width: 8rem;
+                cursor: pointer;
+            }
+        }
+
+        .grid
+        {
+            position: absolute;
+            box-shadow: inset 0 0 0 calc(2 * var(--gridStroke)) var(--gridColor); 
+            background: repeating-linear-gradient(to right, var(--gridColor) 0px, var(--gridColor) 0.3rem, transparent var(--gridStroke), transparent calc(var(--cubeLength) - var(--gridStroke)), var(--gridColor) calc(var(--cubeLength) - var(--gridStroke)), var(--gridColor) var(--cubeLength)), repeating-linear-gradient(to bottom, var(--gridColor) 0px, var(--gridColor) 0.3rem, transparent var(--gridStroke), transparent calc(var(--cubeLength) - var(--gridStroke)), var(--gridColor) calc(var(--cubeLength) - var(--gridStroke)), var(--gridColor) var(--cubeLength));
+            filter: opacity(0);
+        }
+
+        #cubesContainer
+        {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            
+            .cube
+            {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: absolute;
+                bottom: 0;
+                height: var(--cubeLength);
+                width: var(--cubeLength);
+                background-image: url(./Assets/Cube.png);
+                background-size: contain;
+                background-repeat: no-repeat;
+                cursor: pointer;
+
+                .cubeText
+                {
+                    font-size: var(--cubeTextSize);
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+
+    #chooseScreen
+    {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        background-color: var(--chooseScreenBackgroundTint);
+        z-index: 3;
+
+        #chooseBox
+        {
+            position: absolute;
+            top: calc(50% - var(--chooseScreenHeight) / 2);
+            left: calc(50% - var(--chooseScreenWidth) / 2);
+            display: flex;
+            height: var(--chooseScreenHeight);
+            width: var(--chooseScreenWidth);
+            border-radius: 5rem;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+    
+            h1
+            {
+                font-size: 3rem;
+                padding-bottom: 3rem;
+                
+                #lightestCubeNumberInput, #heaviestCubeNumberInput
+                {
+                    width: 8rem;
+                    font-size: 3rem;
+                    font-weight: bold;
+                    text-align: center;
+                    -webkit-appearance: none;
+                    appearance: none;
+                    border: none;
+                    outline: none;
+                    border-bottom: #000000 0.3rem solid;
+                    background-color: rgba($color: #000000, $alpha: 0);
+                    -moz-appearance: textfield;
+                }
+    
+                input::-webkit-outer-spin-button, input::-webkit-inner-spin-button
+                {
+                    -webkit-appearance: none;
+                    margin: 0;
+                }
+            }
+    
+            #chooseScreenButtonsContainer
+            {
+                margin-top: 2rem;
+    
+                button
+                {
+                    padding: 0.9rem 1.8rem;
+                    font-size: 3rem;
+                    font-weight: bold;
+                    white-space: nowrap;
+                    border: #000000 0.1rem solid;
+                    border-radius: 3rem;
+                }
+    
+                #close
+                {
+                    position: absolute;
+                    top: 1rem;
+                    right: 1rem;
+                    background-color: white;
+                    color: black;
+                    border: none;
+                }
+    
+                #close:hover
+                {
+                    cursor: pointer;
+                }
+    
+                #restart
+                {
+                    margin-right: 5rem;
+                    background-color: var(--angryRed);
+                    color: white;
+                }
+    
+                #restart:hover
+                {
+                    cursor: pointer;
+                    background-color: var(--angryRedHover);
+                }
+                
+                #accept
+                {
+                    background-color: var(--happyGreen);
+                }
+    
+                #accept:hover
+                {
+                    cursor: pointer;
+                    background-color: var(--happyGreenHover);
+                }
+            }
+        }
+    }
+
+    #lastScreen
+    {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        #winStatusMessage
+        {
+            font-size: 10rem;
+            text-shadow: 0.2rem 0.2rem 0 #000, -0.2rem 0.2rem 0 #000, -0.2rem -0.2rem 0 #000, 0.2rem -0.2rem 0 #000; //Text stroke
+        }
+
+        #cubesRevealedMessage
+        {
+            margin: 5rem 0;
+            font-size: 3rem;
+            text-align: center;
+            line-height: 4.5rem;
+        }
+
+        #lastScreenButtonsContainer
+        {
+            position: relative;
+
+            button
+            {
+                padding: 0.9rem 1.8rem;
+                font-size: 3rem;
+                font-weight: bold;
+                white-space: nowrap;
+                border: #000000 0.1rem solid;
+                border-radius: 3rem;
+            }
+
+            #menu
+            {
+                margin-right: 5rem;
+                background-color: var(--happyGreen);
+            }
+
+            #menu:hover
+            {
+                cursor: pointer;
+                background-color: var(--happyGreenHover);
+            }
+           
+            #exit
+            {
+                background-color: var(--angryRed);
+                color: white;
+            }
+
+            #exit:hover
+            {
+                cursor: pointer;
+                background-color: var(--angryRedHover);
+            }
+        }
+    }
+}
