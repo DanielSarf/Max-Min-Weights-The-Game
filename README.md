@@ -1,4 +1,4 @@
-# Min-Max Weights: The Game
+# Max Min Weights: The Game
 
 ## Introduction
 
